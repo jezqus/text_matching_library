@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36408.4 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextMatchingLibrary", "TextMatchingLibrary\TextMatchingLibrary.csproj", "{DDFC07F4-66BE-4474-A356-53B745AF7D15}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextMatchingLibrary.Tests", "TextMatchingLibrary.Tests\TextMatchingLibrary.Tests.csproj", "{78489E80-44D4-43F9-8E01-7D47960596E9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DDFC07F4-66BE-4474-A356-53B745AF7D15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDFC07F4-66BE-4474-A356-53B745AF7D15}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDFC07F4-66BE-4474-A356-53B745AF7D15}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDFC07F4-66BE-4474-A356-53B745AF7D15}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78489E80-44D4-43F9-8E01-7D47960596E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78489E80-44D4-43F9-8E01-7D47960596E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78489E80-44D4-43F9-8E01-7D47960596E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78489E80-44D4-43F9-8E01-7D47960596E9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {079EB980-B250-4DD4-A6EC-29BB8B34B0DD}
+	EndGlobalSection
+EndGlobal

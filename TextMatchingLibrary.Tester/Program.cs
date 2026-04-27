@@ -20,7 +20,8 @@ List<IMatcher<string>> matchers = new List<IMatcher<string>>()
 {
     new ContainsMatcher(),
     new LongestSubstringMatcher(),
-    new JaroMatcher()
+    new JaroMatcher(),
+    new DiceMatcher(),
 };
 
 foreach (var entry in entries)

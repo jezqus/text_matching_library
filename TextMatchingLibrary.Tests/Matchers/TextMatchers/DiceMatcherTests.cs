@@ -22,7 +22,7 @@ namespace TextMatchingLibrary.Tests
         [TestCase("abc", "abcdef", 0.571)]
         [TestCase("abcdef", "abc", 0.571)]
         [TestCase("abc", "xyzabcdef", 0.400)]
-        [TestCase("a", "xyzabcdaefaa", 0.083)]
+        [TestCase("a", "xyzabcdaefaa", 0.133)]
         public void Match(string first, string second, double expected)
         {
             double result = this.diceMatcher.Match(first, second);

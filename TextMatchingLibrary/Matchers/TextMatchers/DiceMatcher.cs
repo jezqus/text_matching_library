@@ -8,8 +8,11 @@ namespace TextMatchingLibrary.Matchers
         {
             if (first.IsNullOrEmpty() || second.IsNullOrEmpty()) return 0;
             if (first.Equals(second, StringComparison.InvariantCultureIgnoreCase)) return 1;
-            if (first.Length < 2 && second.Contains(first)) return (double)first.Length / (double)second.Length;
-            if (second.Length < 2 && first.Contains(second)) return (double)second.Length / (double)first.Length;
+            if (first.Length < 2 || second.Length < 2)
+            { 
+                first = $" {first} ";
+                second = $" {second} ";
+            }
 
             Dictionary<string, int> firstBiGramms = new Dictionary<string, int>();
 

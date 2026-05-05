@@ -1,6 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
 using TextMatchingLibrary.Matchers;
+using TextMatchingLibrary.Normalizers;
 
 Console.WriteLine("Testing ...");
 
@@ -16,12 +17,15 @@ List<(string first, string second)> entries = new List<(string first, string sec
     ("23 Kamal Eddin Salah St. Garden City", "23 Kamal El Din Hussein St, Cairo")
 };
 
+INormalizer normalizer = new SimpleNormalizer();
 List<IMatcher<string>> matchers = new List<IMatcher<string>>()
 {
     new ContainsMatcher(),
     new LongestSubstringMatcher(),
     new JaroMatcher(),
     new DiceMatcher(),
+    new DiceOverlapMatcher(),
+    new BGrammOverlapMatcher()
 };
 
 foreach (var entry in entries)
@@ -29,7 +33,7 @@ foreach (var entry in entries)
     Console.Write($"{entry.first.Substring(0, 8)}... vs {entry.second.Substring(0, 8)} ... ");
     foreach (var matcher in matchers)
     {
-        Console.Write($"{matcher.GetType().Name}: {Math.Round(matcher.Match(entry.first, entry.second), 3)}, ");
+        Console.Write($"{matcher.GetType().Name}: {Math.Round(matcher.Match(normalizer.Normalize(entry.first), normalizer.Normalize(entry.second)), 3)}, ");
     }
 
     Console.WriteLine();

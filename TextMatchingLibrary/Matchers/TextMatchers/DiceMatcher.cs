@@ -1,13 +1,27 @@
 ﻿using TextMatchingLibrary.Extensions;
+using TextMatchingLibrary.Normalizers;
 
 namespace TextMatchingLibrary.Matchers
 {
-    public class DiceMatcher : IMatcher<string>
+    public class DiceMatcher : BaseMatcher, IMatcher<string>
     {
+        public DiceMatcher()
+            :base() { }
+
+        public DiceMatcher(INormalizer normalizer)
+            :base(normalizer) { }
+
         public double Match(string first, string second)
         {
             if (first.IsNullOrEmpty() || second.IsNullOrEmpty()) return 0;
             if (first.Equals(second, StringComparison.InvariantCultureIgnoreCase)) return 1;
+
+            if (this.normalizer is not null)
+            {
+                first = this.normalizer.Normalize(first);
+                second = this.normalizer.Normalize(second);
+            }
+
             if (first.Length < 2 || second.Length < 2)
             { 
                 first = $" {first} ";

@@ -1,13 +1,27 @@
 ﻿using System.Text;
 using TextMatchingLibrary.Extensions;
+using TextMatchingLibrary.Normalizers;
 
 namespace TextMatchingLibrary.Matchers
 {
-    public class LongestSubstringMatcher : IMatcher<string>
+    public class LongestSubstringMatcher : BaseMatcher, IMatcher<string>
     {
+        public LongestSubstringMatcher()
+            :base() { }
+
+        public LongestSubstringMatcher(INormalizer normalizer)
+            :base(normalizer) { }
+
         public double Match(string first, string second)
         {
             if (first.IsNullOrEmpty() || second.IsNullOrEmpty()) return 0;
+
+            if (this.normalizer is not null)
+            {
+                first = this.normalizer.Normalize(first);
+                second = this.normalizer.Normalize(second);
+            }
+
             int maxWordLength = Math.Max(first.Length, second.Length);
 
             int[,] values = new int[first.Length + 1, second.Length + 1];

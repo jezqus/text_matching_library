@@ -1,5 +1,7 @@
 ﻿
+using Moq;
 using TextMatchingLibrary.Matchers;
+using TextMatchingLibrary.Normalizers;
 
 namespace TextMatchingLibrary.Tests
 {
@@ -26,6 +28,18 @@ namespace TextMatchingLibrary.Tests
         public void Match(string first, string second, double expected)
         {
             double result = this.jaroMatcher.Match(first, second);
+
+            Assert.That(Math.Round(result, 3), Is.EqualTo(expected));
+        }
+
+        [TestCase("AbcDef", "aBc", 0.833)]
+        public void Match_WithNormalizer(string first, string second, double expected)
+        {
+            var mock = new Mock<INormalizer>();
+            mock.Setup(normalizer => normalizer.Normalize(It.IsAny<string>())).Returns((string s) => s.ToLower());
+
+            var matcher = new JaroMatcher(mock.Object);
+            double result = matcher.Match(first, second);
 
             Assert.That(Math.Round(result, 3), Is.EqualTo(expected));
         }

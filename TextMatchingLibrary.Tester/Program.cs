@@ -20,12 +20,11 @@ List<(string first, string second)> entries = new List<(string first, string sec
 INormalizer normalizer = new SimpleNormalizer();
 List<IMatcher<string>> matchers = new List<IMatcher<string>>()
 {
-    new ContainsMatcher(),
-    new LongestSubstringMatcher(),
-    new JaroMatcher(),
-    new DiceMatcher(),
-    new DiceOverlapMatcher(),
-    new BGrammOverlapMatcher()
+    new ContainsMatcher(normalizer),
+    new LongestSubstringMatcher(normalizer),
+    new JaroMatcher(normalizer),
+    new DiceMatcher(normalizer),
+    new JaroWinklerMatcher(normalizer)
 };
 
 foreach (var entry in entries)
@@ -33,7 +32,7 @@ foreach (var entry in entries)
     Console.Write($"{entry.first.Substring(0, 8)}... vs {entry.second.Substring(0, 8)} ... ");
     foreach (var matcher in matchers)
     {
-        Console.Write($"{matcher.GetType().Name}: {Math.Round(matcher.Match(normalizer.Normalize(entry.first), normalizer.Normalize(entry.second)), 3)}, ");
+        Console.Write($"{matcher.GetType().Name}: {Math.Round(matcher.Match(entry.first, entry.second), 3)}, ");
     }
 
     Console.WriteLine();

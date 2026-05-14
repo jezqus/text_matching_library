@@ -1,13 +1,26 @@
 ﻿using TextMatchingLibrary.Extensions;
+using TextMatchingLibrary.Normalizers;
 
 namespace TextMatchingLibrary.Matchers
 {
-    public class JaroMatcher : IMatcher<string>
+    public class JaroMatcher : BaseMatcher, IMatcher<string>
     {
-        public double Match(string first, string second)
+        public JaroMatcher()
+            :base() { }
+
+        public JaroMatcher(INormalizer normalizer)
+            :base(normalizer) { }
+
+        public virtual double Match(string first, string second)
         {
             if (first.IsNullOrEmpty() || second.IsNullOrEmpty()) return 0;
-            
+
+            if (this.normalizer is not null)
+            {
+                first = this.normalizer.Normalize(first);
+                second = this.normalizer.Normalize(second);
+            }
+
             int maxLength = Math.Max(first.Length, second.Length);
             int maxDistance = (int)Math.Floor((double)maxLength / 2) - 1;
 

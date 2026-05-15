@@ -38,7 +38,7 @@ namespace TextMatchingLibrary.Matchers
                 }
             }
 
-            return (double)maxLength / (double)maxWordLength;
+            return (double)(maxLength*2) / (double)(first.Length + second.Length);
         }
     }
 }

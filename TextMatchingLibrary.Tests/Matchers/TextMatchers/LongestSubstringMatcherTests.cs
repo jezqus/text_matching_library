@@ -18,12 +18,12 @@ namespace TextMatchingLibrary.Tests
         [TestCase("", "abc", 0)]
         [TestCase("forst", "frost", 0.4)]
         [TestCase("frost", "frost", 1)]
-        [TestCase("frost", "frostXYZ", 0.625)]
-        [TestCase("frostXYZ", "frost", 0.625)]
-        [TestCase("abc", "abcdef", 0.5)]
-        [TestCase("abcdef", "abc", 0.5)]
-        [TestCase("abc", "xyzabcdef", 0.333)]
-        [TestCase("a", "xyzabcdaefaa", 0.083)]
+        [TestCase("frost", "frostXYZ", 0.769)]
+        [TestCase("frostXYZ", "frost", 0.769)]
+        [TestCase("abc", "abcdef", 0.667)]
+        [TestCase("abcdef", "abc", 0.667)]
+        [TestCase("abc", "xyzabcdef", 0.5)]
+        [TestCase("a", "xyzabcdaefaa", 0.154)]
         public void Match(string first, string second, double expected)
         {
             double result = this.longestSubstringMatcher.Match(first, second);
@@ -31,7 +31,7 @@ namespace TextMatchingLibrary.Tests
             Assert.That(Math.Round(result, 3), Is.EqualTo(expected));
         }
 
-        [TestCase("AbcDef", "aBc", 0.5)]
+        [TestCase("AbcDef", "aBc", 0.667)]
         public void Match_WithNormalizer(string first, string second, double expected)
         {
             var mock = new Mock<INormalizer>();

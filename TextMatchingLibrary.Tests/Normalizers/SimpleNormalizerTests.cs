@@ -23,6 +23,9 @@ namespace TextMatchingLibrary.Tests
         [TestCase("CosюTam", "cosyutam")]
         [TestCase("Herß", "herss")]
         [TestCase("KoloNaukoweψ", "kolonaukoweps")]
+        [TestCase("Hey!Wow%Nice,break.", "hey wow nice break")]
+        [TestCase("Herß-Klin'enn", "herss-klin enn")]
+        [TestCase("!Halt! What about  that??.", "halt what about that")]
         public void Normalize(string intput, string output)
         {
             string result = this.simpleTextNormalizer.Normalize(intput);

@@ -47,18 +47,44 @@ namespace TextMatchingLibrary.Normalizers
             {
                 var normalizedInput = input.Normalize(NormalizationForm.FormD);
                 StringBuilder sb = new StringBuilder(normalizedInput.Length);
+
+                bool wasPreviousCharWhitespace = false;
                 foreach (var c in normalizedInput)
                 {
                     UnicodeCategory unicodeCategory = CharUnicodeInfo.GetUnicodeCategory(c);
-                    if(unicodeCategory != UnicodeCategory.NonSpacingMark)
+                    if (unicodeCategory == UnicodeCategory.OpenPunctuation ||
+                        unicodeCategory == UnicodeCategory.ClosePunctuation ||
+                        unicodeCategory == UnicodeCategory.InitialQuotePunctuation ||
+                        unicodeCategory == UnicodeCategory.FinalQuotePunctuation ||
+                        unicodeCategory == UnicodeCategory.OtherPunctuation)
+                    {
+                        if (!wasPreviousCharWhitespace)
+                        {
+                            sb.Append(' ');
+                        }
+
+                        wasPreviousCharWhitespace = true;
+                    }
+                    else if (unicodeCategory == UnicodeCategory.SpaceSeparator)
+                    {
+                        if (!wasPreviousCharWhitespace)
+                        {
+                            sb.Append(' ');
+                        }
+
+                        wasPreviousCharWhitespace = true;
+                    }
+                    else if (unicodeCategory != UnicodeCategory.NonSpacingMark)
                     {
                         char cToAppend = Char.IsUpper(c) ? char.ToLower(c) : c;
-                        
+
                         sb.Append(mostCommonProblematicCharacters.ContainsKey(cToAppend) ? mostCommonProblematicCharacters[cToAppend] : cToAppend);
+
+                        wasPreviousCharWhitespace = false;
                     }
                 }
                 
-                return sb.ToString();
+                return sb.ToString().Trim();
             }
 
             return input;

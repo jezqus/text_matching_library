@@ -16,12 +16,14 @@ namespace TextMatchingLibrary.Normalizers
                 {
                     token.Append(c);
                 }
-                else if(token.Length > 0)
+                else if (token.Length > 0)
                 {
                     yield return token.ToString();
                     token.Clear();
                 }
             }
+
+            if (token.Length > 0) yield return token.ToString();
         }
     }
 }

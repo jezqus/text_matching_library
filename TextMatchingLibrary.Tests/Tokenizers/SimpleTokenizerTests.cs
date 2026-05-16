@@ -17,13 +17,12 @@ namespace TextMatchingLibrary.Tests
         [TestCase("frost", new string[] { "frost" })]
         [TestCase("frost with dry machine", new string[] { "frost", "with", "dry", "machine" })]
         [TestCase("frost with  machine", new string[] { "frost", "with", "machine" })]
-        public void Normalize(string intput, string[] output)
+        [TestCase("frost 123 13", new string[] { "frost", "123", "13" })]
+        public void Normalize(string intput, string[] expected)
         {
-            int index = 0;
-            foreach (string token in this.simpleTokenizer.ReadToken(intput))
-            {
-                Assert.That(token, Is.EqualTo(output[index++]));
-            }
+            string[] result = this.simpleTokenizer.ReadToken(intput).ToArray();
+            
+            Assert.That(result, Is.EquivalentTo(expected));
         }
     }
 }

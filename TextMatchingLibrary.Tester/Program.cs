@@ -1,5 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
+using TextMatchingLibrary.Extensions;
 using TextMatchingLibrary.Matchers;
 using TextMatchingLibrary.Normalizers;
 
@@ -8,6 +9,7 @@ Console.WriteLine("Testing ...");
 List<(string first, string second)> entries = new List<(string first, string second)>()
 {
     ("Ala ma kota","Kot ma ale"),
+    ("Ala ma kota","Ala am koto"),
     ("Znaczny wzrost infracji","Brak wzrostu inflacji"),
     ("System przetwarza dane wejsciowe w czasie rzeczywistym", "System analizuje dane wejsciowe w czasie rzeczywistym"),
     ("Uzytkownik moze zmienić ustawienia aplikacji w panelu", "Uzytkownik ma mozliwość modyfikacji ustawień aplikacji w panelu"),
@@ -20,19 +22,21 @@ List<(string first, string second)> entries = new List<(string first, string sec
 INormalizer normalizer = new SimpleNormalizer();
 List<IMatcher<string>> matchers = new List<IMatcher<string>>()
 {
-    new ContainsMatcher(normalizer),
     new LongestSubstringMatcher(normalizer),
     new JaroMatcher(normalizer),
     new DiceMatcher(normalizer),
-    new JaroWinklerMatcher(normalizer)
+    new JaroWinklerMatcher(normalizer),
+    new DiceJaroMatcher(normalizer)
 };
 
 foreach (var entry in entries)
 {
+    double threshold = 0.85;
+
     Console.Write($"{entry.first.Substring(0, 8)}... vs {entry.second.Substring(0, 8)} ... ");
     foreach (var matcher in matchers)
     {
-        Console.Write($"{matcher.GetType().Name}: {Math.Round(matcher.Match(entry.first, entry.second), 3)}, ");
+        Console.Write($"{matcher.GetType().Name}: {Math.Round(matcher.Match(entry.first, entry.second), 3)}({Math.Round(matcher.Match(entry.first, entry.second), 3).IsSimilar(threshold)}), ");
     }
 
     Console.WriteLine();

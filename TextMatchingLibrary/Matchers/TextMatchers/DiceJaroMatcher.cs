@@ -32,7 +32,7 @@ namespace TextMatchingLibrary.Matchers
             else
             {
                 var diceDistance = this.diceMatcher.Match(first, second);
-                if (diceDistance > 0.7 && diceDistance < 0.9) //quite similar, but not the same add Jaro-Winkler distance to improve the score
+                if (diceDistance >= 0.5 && diceDistance < 0.9) //quite similar, but not the same add Jaro-Winkler distance to improve the score
                 {
                     var jaroDistance = this.jaroWinklerMatcher.Match(first, second);
 

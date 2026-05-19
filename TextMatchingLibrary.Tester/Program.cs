@@ -1,5 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
+using System.Text.RegularExpressions;
 using TextMatchingLibrary.Extensions;
 using TextMatchingLibrary.Matchers;
 using TextMatchingLibrary.Normalizers;
@@ -20,13 +21,21 @@ List<(string first, string second)> entries = new List<(string first, string sec
 };
 
 INormalizer normalizer = new SimpleNormalizer();
+CustomMatcher customMatcher = new CustomMatcher(new List<CustomMatcherConfigurationEntry>()
+{
+    new CustomMatcherConfigurationEntry(new DiceJaroMatcher(), 0.75),
+    new CustomMatcherConfigurationEntry(new NumbersMatcher(), 0.15),
+    new CustomMatcherConfigurationEntry(new LengthMatcher(), 0.1)
+}, normalizer);
+
 List<IMatcher<string>> matchers = new List<IMatcher<string>>()
 {
-    new LongestSubstringMatcher(normalizer),
+    //new LongestSubstringMatcher(normalizer),
     new JaroMatcher(normalizer),
     new DiceMatcher(normalizer),
     new JaroWinklerMatcher(normalizer),
-    new DiceJaroMatcher(normalizer)
+    new DiceJaroMatcher(normalizer),
+    customMatcher
 };
 
 foreach (var entry in entries)

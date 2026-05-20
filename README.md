@@ -1,4 +1,4 @@
-# TextMatchingLibrary
+# Text Matching Library
 
 A library that implements popular text comparison algorithms and helpful utilities. It also includes a hybrid matcher that combines Dice and Jaro–Winkler (DiceJaro) and a CustomMatcher that allows arbitrary composition of other matchers using weights.
 
